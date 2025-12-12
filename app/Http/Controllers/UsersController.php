@@ -6,34 +6,18 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function codeGenerator()
-    {
-        return view('aiapplication/codeGenerator');
-    }
-
     public function addUser()
     {
-        return view('users/addUser');
-    }
-    
-    public function usersGrid()
-    {
-        return view('users/usersGrid');
-    }
-    
-    public function usersList()
-    {
-        return view('users/usersList');
+        return view('add-user');
     }
     
     public function viewProfile()
     {
-        return view('users/viewProfile');
+        return view('profile');
     }
 
     public function viewUser()
     {
-        return view('users/viewUser');
+        return view('user-details');
     }
-    
 }
