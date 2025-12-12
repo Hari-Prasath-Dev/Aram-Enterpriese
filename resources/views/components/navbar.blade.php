@@ -53,11 +53,11 @@
                                     <iconify-icon icon="tabler:message-check" class="icon text-xl"></iconify-icon>  Inbox
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a class="text-black px-0 py-2 hover:text-primary-600 flex items-center gap-4" href="{{ route('company') }}">
                                     <iconify-icon icon="icon-park-outline:setting-two" class="icon text-xl"></iconify-icon>  Setting
                                 </a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <a class="text-black px-0 py-2 hover:text-danger-600 flex items-center gap-4" href="javascript:void(0)">
                                     <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon>  Log Out
