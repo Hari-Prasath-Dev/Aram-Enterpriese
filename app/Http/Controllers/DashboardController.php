@@ -31,6 +31,6 @@ class DashboardController extends Controller
         $paginatedItems = new LengthAwarePaginator($currentPageItems, count($collection), $perPage);
         $paginatedItems->setPath(request()->url());
 
-        return view('dashboard.index', ['tableData' => $paginatedItems]);
+        return view('dashboard', ['tableData' => $paginatedItems]);
     }
 }
