@@ -28,13 +28,13 @@
         </div>
     </div>
 
-    <!-- Total Chits -->
+    <!-- Total Groups -->
         <div class="card shadow-none border border-gray-200 dark:border-neutral-600 dark:bg-neutral-700 rounded-lg h-full bg-gradient-to-r from-purple-600/10 to-bg-white">
         <div class="card-body p-5">
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                    <p class="font-medium text-neutral-900 dark:text-white mb-1">Total Chits</p>
-                    <h6 class="mb-0 dark:text-white">{{ $totalChits ?? 300 }}</h6>
+                    <p class="font-medium text-neutral-900 dark:text-white mb-1">Total Groups</p>
+                    <h6 class="mb-0 dark:text-white">{{ $totalGroups ?? 300 }}</h6>
                 </div>
                 <div class="w-[50px] h-[50px] bg-yellow-500 rounded-full flex justify-center items-center">
                     <iconify-icon icon="mdi:cube" class="text-white text-2xl"></iconify-icon>
@@ -103,13 +103,13 @@
         </div>
     </div>
 
-    <!-- Next Chit Date -->
+    <!-- Next Group Date -->
         <div class="card shadow-none border border-gray-200 dark:border-neutral-600 dark:bg-neutral-700 rounded-lg h-full bg-gradient-to-r from-pink-600/10 to-bg-white">
         <div class="card-body p-5">
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                    <p class="font-medium text-neutral-900 dark:text-white mb-1">Next Chit Date</p>
-                    <h6 class="mb-0 dark:text-white">{{ $nextChitDate ?? '21/06/24' }}</h6>
+                    <p class="font-medium text-neutral-900 dark:text-white mb-1">Next Group Date</p>
+                    <h6 class="mb-0 dark:text-white">{{ $nextGroupDate ?? '21/06/24' }}</h6>
                 </div>
                 <div class="w-[50px] h-[50px] bg-teal-500 rounded-full flex justify-center items-center">
                     <iconify-icon icon="mdi:calendar" class="text-white text-2xl"></iconify-icon>
@@ -175,7 +175,7 @@
                                     <h6 class="text-base mb-0 font-medium">{{ $item['name'] }}</h6>
                                 </td>
                                 <td class="p-4">9876543210</td> <!-- Static Phone based on request for list format -->
-                                <td class="p-4">Chit A</td> <!-- Static Group Value -->
+                                <td class="p-4">Group A</td> <!-- Static Group Value -->
                                 <td class="p-4">₹ {{ $item['amount'] }}</td>
                                 <td class="p-4">
                                     @if($loop->iteration % 3 == 0)

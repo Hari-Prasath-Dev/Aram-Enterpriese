@@ -51,16 +51,35 @@
        <div class="grid grid-cols-12">
         <div class="col-span-12">
             <div class="card border-0 overflow-hidden">
-                <div class="card-header flex justify-between items-center bg-white dark:bg-neutral-700 border-b border-neutral-200 dark:border-neutral-600 py-4 px-6">
+                <div class="card-header border-b border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 py-4 px-6 flex items-center justify-between">
                     <h6 class="card-title mb-0 text-lg font-semibold text-neutral-900 dark:text-white">Customer List</h6>
-                    <div class="flex items-center gap-2">
-                      <form class="navbar-search">
-                    <input type="text" name="search" placeholder="Search">
-                    <iconify-icon icon="ion:search-outline" class="icon"></iconify-icon>
-                </form>
-                   <a href="{{ route('addUser') }}" class="btn btn-primary text-sm px-3 py-2 flex items-center gap-1 ms-auto">
+                    <a href="{{ route('addUser') }}" class="btn btn-primary text-sm px-3 py-2 flex items-center gap-1">
                         <iconify-icon icon="heroicons:plus" class="text-lg"></iconify-icon> Create Customers
                     </a>
+                </div>
+                <div class="card-body border-b border-neutral-200 dark:border-neutral-600 px-6 py-4">
+                    <div class="w-full flex items-center gap-6 bg-white dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-600 rounded-xl px-4 py-3">
+                        <!-- Search -->
+                        <div class="flex items-center gap-2 w-full max-w-md">
+                            <iconify-icon icon="ion:search-outline" class="text-neutral-500 text-lg"></iconify-icon>
+                            <input type="text" class="form-control border-0 bg-transparent focus:shadow-none p-0 text-sm w-full" placeholder="Search...">
+                        </div>
+                        
+                        <!-- Filter By Location -->
+                        <div class="flex items-center gap-2 border-l border-neutral-300 dark:border-neutral-600 pl-6 h-full">
+                            <span class="text-neutral-800 dark:text-white whitespace-nowrap">Location</span>
+                            <select class="form-select border-0 bg-transparent text-neutral-500 focus:shadow-none ps-0 py-0 cursor-pointer min-w-[150px]">
+                                <option>All Locations</option>
+                                <option>New York</option>
+                                <option>London</option>
+                            </select>
+                        </div>
+
+                        <!-- Reset Filter -->
+                        <button type="button" class="ml-auto flex items-center gap-1 text-red-500 font-medium hover:text-red-600">
+                            <iconify-icon icon="mdi:refresh"></iconify-icon>
+                            Reset
+                        </button>
                     </div>
                 </div>
                 <div class="card-body p-0">
@@ -103,7 +122,7 @@
                                                 display: flex;
                                                 justify-content: center;
                                             ">
-                                            <a href="{{ route('viewUser') }}" class="w-8 h-8 bg-primary-50 dark:bg-primary-600/10 text-primary-600 dark:text-primary-400 rounded-full inline-flex items-center justify-center hover:bg-primary-100 transition-colors">
+                                            <a href="{{ route('viewUser', $user['s_no']) }}" class="w-8 h-8 bg-primary-50 dark:bg-primary-600/10 text-primary-600 dark:text-primary-400 rounded-full inline-flex items-center justify-center hover:bg-primary-100 transition-colors">
                                                 <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
                                             </a>
                                             <a href="{{ route('formValidation', ['name' => $user['name'], 'phone' => $user['phone_number'], 'location' => $user['location'], 'email' => 'example@email.com']) }}" class="w-8 h-8 bg-success-100 dark:bg-success-600/25 text-success-600 dark:text-success-400 rounded-full inline-flex items-center justify-center hover:bg-success-200 transition-colors">
