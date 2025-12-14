@@ -124,11 +124,11 @@
                                 <td>₹4500.00</td>
                                 <td>
                                     <div class="flex items-center gap-2">
-                                        <a href="{{ route('paymentView', ['id' => 1]) }}" class="w-8 h-8 bg-primary-50 dark:bg-primary-600/10 text-primary-600 dark:text-primary-400 rounded-full inline-flex items-center justify-center" title="View">
+                                        <a href="{{ route('paymentView', ['id' => 1]) }}" class="w-8 h-8 bg-primary-50 dark:bg-primary-600/10 text-primary-600 dark:text-primary-400 rounded-full inline-flex items-center justify-center" title="View" >
                                             <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
                                         </a>
-                                        <button type="button" onclick="openPaymentModal()" class="border-0 bg-transparent p-0" title="Payment">
-                                            <img src="{{ asset('assets/images/asset/asset-img2.png') }}" alt="Payment" class="w-8 h-8 object-contain">
+                                        <button type="button" onclick="openPaymentModal()" class="w-8 h-8 bg-primary-50 dark:bg-primary-600/10 text-primary-600 dark:text-primary-400 rounded-full inline-flex items-center justify-center" title="Payment"style="background: #1dde1db5;">
+                                             <iconify-icon icon="mdi:currency-rupee" class="text-white text-2xl"></iconify-icon>
                                         </button>
                                     </div>
                                 </td>
@@ -152,9 +152,10 @@
                                         <a href="{{ route('paymentView', ['id' => 2]) }}" class="w-8 h-8 bg-primary-50 dark:bg-primary-600/10 text-primary-600 dark:text-primary-400 rounded-full inline-flex items-center justify-center" title="View">
                                             <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
                                         </a>
-                                        <button type="button" onclick="openPaymentModal()" class="border-0 bg-transparent p-0" title="Payment">
-                                            <img src="{{ asset('assets/images/asset/asset-img2.png') }}" alt="Payment" class="w-8 h-8 object-contain">
+                                       <button type="button" onclick="openPaymentModal()" class="w-8 h-8 bg-primary-50 dark:bg-primary-600/10 text-primary-600 dark:text-primary-400 rounded-full inline-flex items-center justify-center" title="Payment"style="background: #1dde1db5;">
+                                             <iconify-icon icon="mdi:currency-rupee" class="text-white text-2xl" ></iconify-icon>
                                         </button>
+                                        
                                     </div>
                                 </td>
                                 <td><span class="badge bg-danger-100 text-danger-600 rounded-full px-3 py-1">Not Paid</span></td>

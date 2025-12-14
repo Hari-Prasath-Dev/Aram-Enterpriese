@@ -23,17 +23,7 @@
                 </div>
                 <div class="card-body px-6 py-4">
                     <!-- Filter Section (Standardized) -->
-                    <div class="w-full flex items-center gap-6 bg-white dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-600 rounded-xl px-4 py-3">
-                       
-                        <div class="flex items-center gap-2 max-w-md w-[250px]">
-                            <iconify-icon icon="ion:search-outline" class="text-neutral-500 text-lg"></iconify-icon>
-                            <input type="text" class="form-control bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg px-3 py-1.5 text-sm w-full" placeholder="Search...">
-                        </div>
-                        <button type="button" class="ml-auto flex items-center gap-1 text-red-500 font-medium hover:text-red-600">
-                            <iconify-icon icon="mdi:refresh"></iconify-icon>
-                            Reset
-                        </button>
-                    </div>
+
                 </div>
                 <div class="card-body">
                     <table id="selection-table" class="border border-neutral-200 dark:border-neutral-600 rounded-lg border-separate">
@@ -128,8 +118,10 @@
     <!-- Approve -->
     <button 
         type="button"
-        class="w-full bg-green-600 hover:bg-green-400 text-white font-medium rounded-lg 
-               text-sm px-5 py-2.5 transition-colors duration-200"
+        class="w-full bg-green-600 text-white font-medium rounded-lg 
+               text-sm px-5 py-2.5 transition-colors duration-200"style="
+    background: green;
+"
     >
         Approve
     </button>

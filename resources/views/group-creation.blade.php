@@ -85,13 +85,7 @@
                 <div class="card-body border-b border-neutral-200 dark:border-neutral-600 px-6 py-4">
                     <div class="w-full flex items-center gap-6 bg-white dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-600 rounded-xl px-4 py-3">
                         <!-- Filter Icon -->
-                        <div class="text-neutral-700 dark:text-white text-xl">
-                            <iconify-icon icon="mdi:filter-outline"></iconify-icon>
-                        </div>
-                        <!-- Filter By -->
-                        <div class="flex items-center text-neutral-800 dark:text-white font-medium">
-                            Filter By
-                        </div>
+                      
                         <!-- Date Filter -->
                         <div class="flex items-center gap-2 border-l border-neutral-300 dark:border-neutral-600 pl-6">
                             <span class="text-neutral-800 dark:text-white">Date</span>
