@@ -2,30 +2,34 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AiapplicationController;
-use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ComponentspageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormsController;
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\TableController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\CryptocurrencyController;
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\AiapplicationController;
+use App\Http\Controllers\ChartController;
 
 Route::controller(DashboardController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
+    Route::get('/dashboard', 'index')->name('index');
+});
+
+Route::controller(AuthenticationController::class)->group(function () {
+    Route::get('/', 'signin')->name('signin');
 });
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('calendar-Main','calendarMain')->name('calendarMain');
-    Route::get('chatempty','chatempty')->name('chatempty');
-    Route::get('chit-creation','chitCreation')->name('chitCreation');
-    Route::get('create-chit','createChit')->name('createChit');
-    Route::get('chat-profile','chatProfile')->name('chatProfile');
+    Route::get('group-creation','groupCreation')->name('groupCreation');
+    Route::get('create-group','createGroup')->name('createGroup');
+    Route::get('edit-group/{id}','editGroup')->name('editGroup');
+    Route::get('view-group/{id}','viewGroup')->name('viewGroup');
     Route::get('customer-creation','customerCreation')->name('customerCreation');
     Route::get('payment-collection','paymentCollection')->name('paymentCollection');
+    Route::get('payment-view/{id}','paymentView')->name('paymentView');
+    Route::get('payment-approval','paymentApproval')->name('paymentApproval');
+    Route::get('action-update','actionUpdate')->name('actionUpdate');
+    Route::get('action-update/customer-list','actionUpdateCustomerList')->name('actionUpdateCustomerList');
     Route::get('reports','reports')->name('reports');
     Route::get('faq','faq')->name('faq');
     Route::get('gallery','gallery')->name('gallery');
@@ -57,8 +61,10 @@ Route::prefix('aiapplication')->group(function () {
 Route::prefix('authentication')->group(function () {
     Route::controller(AuthenticationController::class)->group(function () {
         Route::get('/forgot-password', 'forgotPassword')->name('forgotPassword');
-        Route::get('/sign-in', 'signin')->name('signin');
+        // Route::get('/sign-in', 'signin')->name('signin');
         Route::get('/sign-up', 'signup')->name('signup');
+        Route::post('/admin-login', 'login')->name('login.check');
+
     });
 });
 
@@ -74,34 +80,8 @@ Route::prefix('chart')->group(function () {
 // Componentpage
 Route::prefix('componentspage')->group(function () {
     Route::controller(ComponentspageController::class)->group(function () {
-        Route::get('/alert', 'alert')->name('alert');
-        Route::get('/avatar', 'avatar')->name('avatar');
-        Route::get('/badges', 'badges')->name('badges');
-        Route::get('/button', 'button')->name('button');
-        Route::get('/calendar', 'calendar')->name('calendar');
-        Route::get('/card', 'card')->name('card');
-        Route::get('/carousel', 'carousel')->name('carousel');
-        Route::get('/colors', 'colors')->name('colors');
-        Route::get('/dropdown', 'dropdown')->name('dropdown');
-        Route::get('/imageupload', 'imageUpload')->name('imageUpload');
-        Route::get('/list', 'list')->name('list');
-        Route::get('/pagination', 'pagination')->name('pagination');
-        Route::get('/progress', 'progress')->name('progress');
-        Route::get('/radio', 'radio')->name('radio');
-        Route::get('/star-rating', 'starRating')->name('starRating');
-        Route::get('/switch', 'switch')->name('switch');
-        Route::get('/tabs', 'tabs')->name('tabs');
-        Route::get('/tags', 'tags')->name('tags');
-        Route::get('/tooltip', 'tooltip')->name('tooltip');
-        Route::get('/typography', 'typography')->name('typography');
-        Route::get('/videos', 'videos')->name('videos');
-    });
-});
-
-// Dashboard
-Route::prefix('cryptocurrency')->group(function () {
-    Route::controller(CryptocurrencyController::class)->group(function () {
-        Route::get('/wallet','wallet')->name('wallet');
+        Route::get('/imageupload/{id}', 'imageUpload')->name('imageUpload');
+         Route::post('/users/{userId}', 'storeBankDetails')->name('users.bank-details.store');
     });
 });
 
@@ -115,41 +95,10 @@ Route::prefix('dashboard')->group(function () {
 // Forms
 Route::prefix('forms')->group(function () {
     Route::controller(FormsController::class)->group(function () {
-        Route::get('/form', 'form')->name('form');
-        Route::get('/form-layout', 'formLayout')->name('formLayout');
-        Route::get('/form-validation', 'formValidation')->name('formValidation');
-        Route::get('/wizard', 'wizard')->name('wizard');
-    });
-});
+        Route::get('/form-validation/{id}/edit', 'formValidation')->name('formValidation');
+        Route::put('users/{id}', 'update')->name('users.update');
+        Route::post('/pin-update/{id}', 'updatePin')->name('user.pin.update');
 
-// invoice/invoiceList
-Route::prefix('invoice')->group(function () {
-    Route::controller(InvoiceController::class)->group(function () {
-        Route::get('/invoice-add', 'invoiceAdd')->name('invoiceAdd');
-        Route::get('/invoice-edit', 'invoiceEdit')->name('invoiceEdit');
-        Route::get('/invoice-list', 'invoiceList')->name('invoiceList');
-        Route::get('/invoice-preview', 'invoicePreview')->name('invoicePreview');
-    });
-});
-
-// Settings
-Route::prefix('settings')->group(function () {
-    Route::controller(SettingsController::class)->group(function () {
-        Route::get('/company', 'company')->name('company');
-        Route::get('/currencies', 'currencies')->name('currencies');
-        Route::get('/language', 'language')->name('language');
-        Route::get('/notification', 'notification')->name('notification');
-        Route::get('/notification-alert', 'notificationAlert')->name('notificationAlert');
-        Route::get('/payment-gateway', 'paymentGateway')->name('paymentGateway');
-        Route::get('/theme', 'theme')->name('theme');
-    });
-});
-
-// Table
-Route::prefix('table')->group(function () {
-    Route::controller(TableController::class)->group(function () {
-        Route::get('/table-basic', 'tableBasic')->name('tableBasic');
-        Route::get('/table-data', 'tableData')->name('tableData');
     });
 });
 
@@ -157,9 +106,10 @@ Route::prefix('table')->group(function () {
 Route::prefix('users')->group(function () {
     Route::controller(UsersController::class)->group(function () {
         Route::get('/add-user', 'addUser')->name('addUser');
-        Route::get('/users-grid', 'usersGrid')->name('usersGrid');
-        Route::get('/users-list', 'usersList')->name('usersList');
+        Route::get('/edit-user/{id}', 'editUser')->name('editUser');
         Route::get('/view-profile', 'viewProfile')->name('viewProfile');
         Route::get('/view-user', 'viewUser')->name('viewUser');
+        Route::post('/customers/store', 'store')->name('customers.store');
+        Route::get('/view-user/{id}', 'viewUser')->name('viewUser');
     });
 });

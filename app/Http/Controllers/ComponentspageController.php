@@ -2,114 +2,61 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
+use App\Models\BankDetail;
 use Illuminate\Http\Request;
 
 class ComponentspageController extends Controller
 {
-
-    public function typography()
+    public function imageUpload($id)
     {
-        return view('componentspage/typography');
+        $bankDetail = BankDetail::where('user_id', $id)->first();
+
+        return view('image-upload', compact('id', 'bankDetail'));
     }
 
-    public function alert()
-    {
-        return view('componentspage/alert');
-    }
 
-    public function avatar()
+    public function storeBankDetails(Request $request, $userId)
     {
-        return view('componentspage/avatar');
-    }
+        $bankDetail = BankDetail::where('user_id', $userId)->first();
 
-    public function badges()
-    {
-        return view('componentspage/badges');
-    }
+        $data = $request->except('_token');
 
-    public function button()
-    {
-        return view('componentspage/button');
-    }
+        $files = [
+            'bank_statement',
+            'aadhar_front',
+            'aadhar_back',
+            'pan_card',
+            'cibil_score',
+            'other_proof'
+        ];
 
-    public function calendar()
-    {
-        return view('componentspage/calendar');
-    }
+        foreach ($files as $fileField) {
 
-    public function card()
-    {
-        return view('componentspage/card');
-    }
+            // Remove file
+            if ($request->input('remove_'.$fileField) == 1 && $bankDetail?->$fileField) {
+                if (file_exists(public_path($bankDetail->$fileField))) {
+                    unlink(public_path($bankDetail->$fileField));
+                }
+                $data[$fileField] = null;
+            }
 
-    public function carousel()
-    {
-        return view('componentspage/carousel');
-    }
+            // Upload new file
+            if ($request->hasFile($fileField)) {
+                $fileName = time().'_'.$fileField.'.'.$request->file($fileField)->extension();
+                $request->file($fileField)->move(public_path('uploads'), $fileName);
+                $data[$fileField] = 'uploads/'.$fileName;
+            }
+        }
 
-    public function colors()
-    {
-        return view('componentspage/colors');
-    }
+        $data['user_id'] = $userId;
 
-    public function dropdown()
-    {
-        return view('componentspage/dropdown');
-    }
+        BankDetail::updateOrCreate(
+            ['user_id' => $userId],
+            $data
+        );
 
-    public function imageUpload()
-    {
-        return view('componentspage/imageUpload');
-    }
-
-    public function list()
-    {
-        return view('componentspage/list');
-    }
-
-    public function pagination()
-    {
-        return view('componentspage/pagination');
-    }
-
-    public function progress()
-    {
-        return view('componentspage/progress');
-    }
-
-    public function radio()
-    {
-        return view('componentspage/radio');
-    }
-
-    public function starRating()
-    {
-        return view('componentspage/starRating');
-    }
-
-    public function switch()
-    {
-        return view('componentspage/switch');
-    }
-
-    public function tabs()
-    {
-        return view('componentspage/tabs');
-    }
-
-    public function tags()
-    {
-        return view('componentspage/tags');
-    }
-
-    public function tooltip()
-    {
-        return view('componentspage/tooltip');
-    }
-
-    public function videos()
-    {
-        return view('componentspage/videos');
+        return back()->with('success', 'Bank details updated successfully!');
     }
 
 }
