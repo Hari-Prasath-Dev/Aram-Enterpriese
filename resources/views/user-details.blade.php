@@ -25,7 +25,7 @@
                 <!-- Background Pattern -->
                 <div class="absolute top-0 w-full h-32 bg-gradient-to-r from-[#ffe8cc] to-[#ff8c3b]"></div>
                 
-                <div class="card-body p-6 relative z-10 pt-16 text-center">
+                <div class="card-body p-6 relative z-10  text-center">
                     <div class="inline-block relative">
                          <img src="{{ asset('assets/images/user.png') }}" class="w-32 h-32 rounded-full object-cover border-4 border-white dark:border-neutral-700 shadow-md mb-3" alt="Profile">
                     </div>

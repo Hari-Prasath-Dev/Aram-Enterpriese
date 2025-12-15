@@ -60,15 +60,22 @@
                 <div class="card-body border-b border-neutral-200 dark:border-neutral-600 px-6 py-4">
                     <div class="w-full flex items-center gap-6 bg-white dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-600 rounded-xl px-4 py-3">
                         <!-- Search -->
-                        <div class="flex items-center gap-2 w-full max-w-md">
+                        <div class="flex items-center gap-2" style="width: 30%;">
                             <iconify-icon icon="ion:search-outline" class="text-neutral-500 text-lg"></iconify-icon>
-                            <input type="text" class="form-control border-0 bg-transparent focus:shadow-none p-0 text-sm w-full" placeholder="Search...">
+                            <input type="text" class="form-control border-0 bg-transparent focus:shadow-none p-0 text-sm " style="
+                                width: 100%;
+                                border: 1px solid #d2d2d2;
+                                padding: 10px;
+                            "placeholder="Search by Name or Mobile...">
                         </div>
                         
                         <!-- Filter By Location -->
                         <div class="flex items-center gap-2 border-l border-neutral-300 dark:border-neutral-600 pl-6 h-full">
                             <span class="text-neutral-800 dark:text-white whitespace-nowrap">Location</span>
-                            <select class="form-select border-0 bg-transparent text-neutral-500 focus:shadow-none ps-0 py-0 cursor-pointer min-w-[150px]">
+                            <select class="form-select border-0 bg-transparent text-neutral-500 focus:shadow-none ps-0 py-0 cursor-pointer min-w-[150px]" style="
+                                border: 1px solid #d2d2d2;
+                                padding: 6px 29px 6px 6px;
+                            ">
                                 <option>All Locations</option>
                                 <option>New York</option>
                                 <option>London</option>
