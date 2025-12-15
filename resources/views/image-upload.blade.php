@@ -87,29 +87,20 @@
 
                                     <!-- 🌟 COLUMN 3 -->
                             <div class="space-y-5">
-                                    <div class="text-center">  <!-- Center wrapper -->
-                                        <label class="form-label font-semibold text-neutral-900 dark:text-white block mb-2">
-                                            Statement Upload or Check Leaf Upload
-                                        </label>
+                                <div class="text-center">
+                                    <label class="form-label font-semibold text-neutral-900 block mb-2">
+                                        Statement Upload or Check Leaf Upload
+                                    </label>
 
-                                    <div style="display: flex; justify-content: center; width: 100%;">
-                                <div style="width: 220px;">
-                                    @include('components.upload-box', ['id' => 'bank_statement','name' =>'bank_statement','value' => $bankDetail->bank_statement ?? null,'enablePopup' => true ])
+                                        <div class="w-[220px]">
+                                            @include('components.upload-box', [
+                                                'id' => 'bank_statement',
+                                                'name' => 'bank_statement',
+                                                'value' => $bankDetail->bank_statement ?? null
+                                            ])
+                                        </div>
                                 </div>
                             </div>
-
-                            <div id="imagePopup"
-                                class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
-
-                                <button onclick="closeImagePopup()"
-                                        class="absolute top-4 right-4 text-white text-2xl">
-                                    ✖
-                                </button>
-
-                                <img id="popupImage"
-                                    class="max-w-[90%] max-h-[90%] rounded shadow-lg">
-                            </div>
-
 
                         </div>
                     </div>
@@ -210,40 +201,40 @@
 </script>
 
 <script>
-function previewImage(input, id) {
-    const previewBox = document.getElementById('uploaded-img-' + id);
-    const previewImg = document.getElementById('uploaded-img__preview-' + id);
+    function removeImage(id) {
+        // Hide preview box
+        document.getElementById('uploaded-img-' + id).classList.add('hidden');
 
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = e => {
-            previewImg.src = e.target.result;
-            previewBox.classList.remove('hidden');
-        };
-        reader.readAsDataURL(input.files[0]);
+        // Clear preview image
+        document.getElementById('uploaded-img__preview-' + id).src = '';
+
+        // Reset file input
+        document.getElementById('upload-file-' + id).value = '';
+
+        // Show upload button again ✅
+        document.querySelector(`label[for="upload-file-${id}"]`).classList.remove('hidden');
+
+        // Mark remove flag (for backend)
+        document.getElementById('remove-' + id).value = 1;
     }
-}
-
-function removeImage(id) {
-    document.getElementById('uploaded-img-' + id).classList.add('hidden');
-    document.getElementById('upload-file-' + id).value = '';
-    document.getElementById('remove-' + id).value = 1;
-}
 </script>
-
 
 <script>
-function openImagePopup(src) {
-    const popup = document.getElementById('imagePopup');
-    document.getElementById('popupImage').src = src;
-    popup.classList.remove('hidden');
-    popup.classList.add('flex');
-}
+    function previewImage(input, id) {
+        const previewBox = document.getElementById('uploaded-img-' + id);
+        const previewImg = document.getElementById('uploaded-img__preview-' + id);
+        const uploadLabel = document.querySelector(`label[for="upload-file-${id}"]`);
 
-function closeImagePopup() {
-    const popup = document.getElementById('imagePopup');
-    popup.classList.add('hidden');
-    popup.classList.remove('flex');
-}
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                previewImg.src = e.target.result;
+                previewBox.classList.remove('hidden');
+                uploadLabel.classList.add('hidden'); // hide upload button
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
+
 

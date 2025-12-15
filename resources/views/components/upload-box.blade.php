@@ -15,19 +15,17 @@
         </button>
 
         @if($filePath)
-            <img src="{{ asset($filePath) }}"
-                id="uploaded-img__preview-{{ $id }}"
-                class="w-full h-full object-cover {{ ($enablePopup ?? false) ? 'cursor-pointer' : '' }}"
-                @if($enablePopup ?? false)
-                    onclick="openImagePopup(this.src)"
-                @endif
-            >
+            <a href="{{ asset($filePath) }}" target="_blank" class="block">
+                <img src="{{ asset($filePath) }}"
+                    id="uploaded-img__preview-{{ $id }}"
+                    class="w-full h-full object-cover cursor-pointer">
+            </a>
         @else
             <img id="uploaded-img__preview-{{ $id }}"
                 class="w-full h-full object-cover">
         @endif
-    </div>
 
+    </div>
 
     <!-- Upload Button -->
     <label for="upload-file-{{ $id }}"

@@ -62,4 +62,12 @@ class User extends Authenticatable
         return $this->hasOne(BankDetail::class);
     }
 
+    public function chits()
+{
+    return $this->belongsToMany(Chit::class, 'chit_members', 'user_id', 'group_id')
+                ->withPivot('joined_at')
+                ->withTimestamps();
+}
+
+
 }

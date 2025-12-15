@@ -9,6 +9,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\AiapplicationController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\GroupController;
 
 Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('index');
@@ -22,7 +23,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('calendar-Main','calendarMain')->name('calendarMain');
     Route::get('group-creation','groupCreation')->name('groupCreation');
     Route::get('create-group','createGroup')->name('createGroup');
-    Route::get('edit-group/{id}','editGroup')->name('editGroup');
+    Route::get('edit-group/{id}','edit')->name('editGroup');
     Route::get('view-group/{id}','viewGroup')->name('viewGroup');
     Route::get('customer-creation','customerCreation')->name('customerCreation');
     Route::get('payment-collection','paymentCollection')->name('paymentCollection');
@@ -108,8 +109,15 @@ Route::prefix('users')->group(function () {
         Route::get('/add-user', 'addUser')->name('addUser');
         Route::get('/edit-user/{id}', 'editUser')->name('editUser');
         Route::get('/view-profile', 'viewProfile')->name('viewProfile');
-        Route::get('/view-user', 'viewUser')->name('viewUser');
         Route::post('/customers/store', 'store')->name('customers.store');
         Route::get('/view-user/{id}', 'viewUser')->name('viewUser');
+        Route::delete('/user/{id}', 'destroy')->name('user.destroy');
+
     });
 });
+
+Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
+Route::put('/groups/{id}', [GroupController::class, 'update'])->name('groups.update');
+Route::post('/groups/add-members', [GroupController::class, 'addMembers'])->name('groups.addMembers');
+
+Route::post('/auction/store-or-update', [HomeController::class, 'storeOrUpdate'])->name('auction.storeOrUpdate');

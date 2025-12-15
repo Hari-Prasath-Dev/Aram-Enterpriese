@@ -20,13 +20,13 @@
                             <tr class="border-b border-neutral-200 dark:border-neutral-600">
                                 <td class="px-6 py-3 text-neutral-900 dark:text-white">${i}</td>
                                 <td class="px-6 py-3">
-                                    <input type="number" class="form-control rounded-lg w-full" placeholder="Bid Amount">
+                                    <input type="number" class="form-control rounded-lg w-full" placeholder="Bid Amount" name="starting_bid[]">
                                 </td>
                                 <td class="px-6 py-3">
-                                    <input type="number" class="form-control rounded-lg w-full" placeholder="Payable">
+                                    <input type="number" class="form-control rounded-lg w-full" placeholder="Payable" name="amount_payable[]">
                                 </td>
                                 <td class="px-6 py-3">
-                                    <input type="number" class="form-control rounded-lg w-full" placeholder="Dividend">
+                                    <input type="number" class="form-control rounded-lg w-full" placeholder="Dividend" name="dividend[]">
                                 </td>
                             </tr>
                         `;
@@ -50,51 +50,56 @@
                 </a>
             </div>
             <div class="card-body p-6">
-                <form action="{{ route('groupCreation') }}"> 
-                    <!-- Note: Action pointing to list for demo purposes, would normally be a POST route -->
+                <form action="{{ route('groups.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label class="form-label font-semibold text-neutral-900 dark:text-white mb-2">Group Name</label>
-                            <input type="text" class="form-control rounded-lg" placeholder="Enter name">
+                            <input type="text" class="form-control rounded-lg" placeholder="Enter name" name="chit_name">
                         </div>
+
                         <div>
                             <label class="form-label font-semibold text-neutral-900 dark:text-white mb-2">Group Value</label>
-                            <input type="number" class="form-control rounded-lg" placeholder="Enter value">
+                            <input type="number" class="form-control rounded-lg" placeholder="Enter value" name="amount">
                         </div>
+
                         <div>
                             <label class="form-label font-semibold text-neutral-900 dark:text-white mb-2">Start Date</label>
-                            <input type="date" class="form-control rounded-lg">
+                            <input type="date" class="form-control rounded-lg" name="start_date">
                         </div>
+
                        <div>
-                    <label class="form-label font-semibold text-neutral-900 dark:text-white mb-2">Type</label>
-                    <select class="form-control rounded-lg form-select">
-                        <option>Select Type</option>
-                        <option>Fixed</option>
-                        <option selected>Auction</option>
-                    </select>
-                </div>
+                            <label class="form-label font-semibold text-neutral-900 dark:text-white mb-2">Type</label>
+                            <select class="form-control rounded-lg form-select" name="type">
+                                <option vale="">Select Type</option>
+                                <option vale="Fixed">Fixed</option>
+                                <option value="Auction">Auction</option>
+                            </select>
+                        </div>
 
                         <div>
                             <label class="form-label font-semibold text-neutral-900 dark:text-white mb-2">Duration (Months)</label>
-                            <select class="form-control rounded-lg form-select" id="duration">
+                            <select class="form-control rounded-lg form-select" id="duration" name="duration_months">
                                 <option value="">Select Duration</option>
                                 <option value="10">10 Months</option>
                                 <option value="20">20 Months</option>
                                 <option value="40">40 Months</option>
                             </select>
                         </div>
+
                         <div>
                             <label class="form-label font-semibold text-neutral-900 dark:text-white mb-2">Status</label>
-                            <select class="form-control rounded-lg form-select">
+                            <select class="form-control rounded-lg form-select" name="status">
                                 <option>Select Status</option>
-                                <option>Upcoming</option>
-                                <option>Active</option>
-                                <option>Closed</option>
+                                <option value="0">Upcoming</option>
+                                <option value="1">Active</option>
+                                <option value="2">Closed</option>
                             </select>
                         </div>
-                         <div>
+                        
+                        <div>
                             <label class="form-label font-semibold text-neutral-900 dark:text-white mb-2">Auction Held on</label>
-                            <input type="date" class="form-control rounded-lg">
+                            <input type="date" class="form-control rounded-lg" name="auction_held_on">
                         </div>
                     </div>
 

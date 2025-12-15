@@ -39,45 +39,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>Gold Scheme A</td>
-                                <td>John Doe</td>
-                                <td>9876543210</td>
-                                <td>₹500.00</td>
-                                <td>
-                                    <button type="button" onclick="openProofModal()" class="btn btn-sm btn-primary-600 text-white px-3 py-1.5 rounded-full" title="View Proof">
-                                        View
-                                    </button>
-                                </td>
-                                <td><span class="badge bg-warning-100 text-warning-600 rounded-full px-3 py-1">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>02</td>
-                                <td>Silver Pot B</td>
-                                <td>Jane Smith</td>
-                                <td>1234567890</td>
-                                <td>₹2000.00</td>
-                                <td>
-                                    <button type="button" onclick="openProofModal()" class="btn btn-sm btn-primary-600 text-white px-3 py-1.5 rounded-full" title="View Proof">
-                                        View
-                                    </button>
-                                </td>
-                                <td><span class="badge bg-success-100 text-success-600 rounded-full px-3 py-1">Approved</span></td>
-                            </tr>
-                            <tr>
-                                <td>03</td>
-                                <td>Bronze Plan C</td>
-                                <td>Mike Ross</td>
-                                <td>5556667777</td>
-                                <td>₹100.00</td>
-                                <td>
-                                    <button type="button" onclick="openProofModal()" class="btn btn-sm btn-primary-600 text-white px-3 py-1.5 rounded-full" title="View Proof">
-                                        View
-                                    </button>
-                                </td>
-                                <td><span class="badge bg-danger-100 text-danger-600 rounded-full px-3 py-1">Denied</span></td>
-                            </tr>
+                            @foreach($chitDetails as $index => $chit)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $chit->group->chit_name }}</td>
+                                    <td>{{ $chit->user->name ?? 'N/A' }}</td>
+                                    <td>{{ $chit->user->mobile ?? 'N/A' }}</td>
+                                    <td>₹{{ number_format($chit->amount, 2) }}</td>
+                                    <td>
+                                        <button type="button" onclick="openProofModal({{ $chit->id }})" class="btn btn-sm btn-primary-600 text-white px-3 py-1.5 rounded-full" title="View Proof">
+                                            View
+                                        </button>
+                                    </td>
+                                    <td>
+                                        @if($chit->status == 'pending')
+                                            <span class="badge bg-warning-100 text-warning-600 rounded-full px-3 py-1">Pending</span>
+                                        @elseif($chit->status == 'approved')
+                                            <span class="badge bg-success-100 text-success-600 rounded-full px-3 py-1">Approved</span>
+                                        @else
+                                            <span class="badge bg-danger-100 text-danger-600 rounded-full px-3 py-1">Rejected</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

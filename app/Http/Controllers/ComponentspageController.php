@@ -56,7 +56,8 @@ class ComponentspageController extends Controller
             $data
         );
 
-        return back()->with('success', 'Bank details updated successfully!');
+        return redirect()->route('customerCreation')->with('success', 'Bank details updated successfully!');
+
     }
 
 }

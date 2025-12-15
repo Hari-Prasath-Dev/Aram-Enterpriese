@@ -55,19 +55,29 @@ class UsersController extends Controller
 
     public function viewUser($id)
     {
-        return view('user-details', ['id' => $id]);
-    }
-    public function usersGrid()
-    {
-        return view('users/usersGrid');
-    }
-   
-    public function usersList()
-    {
-        return view('users/usersList');
-    }
-   
+        $user = User::with('bankDetail')->findOrFail($id);
 
- 
+        return view('user-details', compact('user'));
+    }
+
+    public function destroy($id)
+    {
+        // Find the user
+        $user = User::with('bankDetail')->findOrFail($id);
+
+        // Delete the bankDetail first if exists
+        if ($user->bankDetail) {
+            $user->bankDetail->delete();
+        }
+
+        // Delete the user
+        $user->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User and bank details deleted successfully.'
+        ]);
+    }
+
 
 }

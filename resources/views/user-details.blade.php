@@ -30,7 +30,7 @@
                          <img src="{{ asset('assets/images/user.png') }}" class="w-32 h-32 rounded-full object-cover border-4 border-white dark:border-neutral-700 shadow-md mb-3" alt="Profile">
                     </div>
                     
-                    <h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-1">Darlene Robertson</h3>
+                    <h3 class="text-xl font-bold text-neutral-900 dark:text-white mb-1">{{ $user->name ?? '-' }}</h3>
                     <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4">Customer ID: #CUST-001</p>
                     
                     <div class="flex justify-center gap-2 mb-6">
@@ -45,7 +45,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-neutral-500 mb-0">Phone</p>
-                                <p class="text-sm font-semibold text-neutral-900 dark:text-white">(252) 555-0126</p>
+                                <p class="text-sm font-semibold text-neutral-900 dark:text-white">{{ $user->mobile ?? '-' }}</p>
                             </div>
                         </div>
                          <div class="flex items-center gap-3">
@@ -54,7 +54,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-neutral-500 mb-0">Email</p>
-                                <p class="text-sm font-semibold text-neutral-900 dark:text-white">darlene@example.com</p>
+                                <p class="text-sm font-semibold text-neutral-900 dark:text-white">{{ $user->email ?? '-' }}</p>
                             </div>
                         </div>
                          <div class="flex items-center gap-3">
@@ -63,7 +63,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-neutral-500 mb-0">Location</p>
-                                <p class="text-sm font-semibold text-neutral-900 dark:text-white">Bangalore, India</p>
+                                <p class="text-sm font-semibold text-neutral-900 dark:text-white">{{ $user->location ?? '-' }}</p>
                             </div>
                         </div>
                     </div>
@@ -86,11 +86,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-700/50 border border-neutral-100 dark:border-neutral-600">
                              <p class="text-xs text-neutral-500 mb-1">Nominee Name</p>
-                             <h6 class="text-base font-semibold text-neutral-900 dark:text-white mb-0">Esther Howard</h6>
+                             <h6 class="text-base font-semibold text-neutral-900 dark:text-white mb-0">{{ $user->nominee_name ?? '-' }}</h6>
                         </div>
                          <div class="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-700/50 border border-neutral-100 dark:border-neutral-600">
                              <p class="text-xs text-neutral-500 mb-1">Nominee Phone</p>
-                             <h6 class="text-base font-semibold text-neutral-900 dark:text-white mb-0">(303) 555-0105</h6>
+                             <h6 class="text-base font-semibold text-neutral-900 dark:text-white mb-0">{{ $user->nominee_number ?? '-' }}</h6>
                         </div>
                     </div>
                 </div>
@@ -108,19 +108,19 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
                         <div>
                             <p class="text-sm text-neutral-500 mb-1">Bank Name</p>
-                            <p class="text-base font-medium text-neutral-900 dark:text-white">HDFC Bank</p>
+                            <p class="text-base font-medium text-neutral-900 dark:text-white">{{ $user->bankDetail->bank_name ?? '-' }}</p>
                         </div>
                         <div>
                             <p class="text-sm text-neutral-500 mb-1">Account Holder</p>
-                            <p class="text-base font-medium text-neutral-900 dark:text-white">Darlene Robertson</p>
+                            <p class="text-base font-medium text-neutral-900 dark:text-white">{{ $user->name ?? '-' }}</p>
                         </div>
                         <div>
                             <p class="text-sm text-neutral-500 mb-1">IFSC Code</p>
-                            <p class="text-base font-medium text-neutral-900 dark:text-white font-mono">HDFC0001234</p>
+                            <p class="text-base font-medium text-neutral-900 dark:text-white font-mono">{{ $user->bankDetail->ifsc_code ?? '-' }}</p>
                         </div>
                         <div>
                             <p class="text-sm text-neutral-500 mb-1">Branch</p>
-                            <p class="text-base font-medium text-neutral-900 dark:text-white">Koramangala, Bangalore</p>
+                            <p class="text-base font-medium text-neutral-900 dark:text-white">{{ $user->bankDetail->branch ?? '-' }}</p>
                         </div>
                     </div>
                 </div>
@@ -134,45 +134,94 @@
                         Documents & Proofs
                     </h6>
                 </div>
+                
                 <div class="card-body p-6">
                     <div class="flex gap-4 overflow-x-auto pb-2">
-                        <!-- Card 1 -->
-                        <div class="min-w-[120px] p-3 border border-neutral-200 rounded-xl text-center hover:border-[#ff8c3b] transition-colors cursor-pointer group bg-neutral-50 dark:bg-neutral-700/30">
-                            <div class="w-10 h-10 mx-auto bg-white dark:bg-neutral-600 rounded-full flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform text-[#ff8c3b]">
-                                <iconify-icon icon="solar:file-check-bold-duotone" class="text-xl"></iconify-icon>
-                            </div>
-                            <p class="text-xs font-semibold text-neutral-900 dark:text-white mb-1">Aadhar Front</p>
-                            <span class="text-[10px] text-success-600 bg-success-50 px-2 py-0.5 rounded-full">Verified</span>
-                        </div>
 
-                         <!-- Card 2 -->
-                        <div class="min-w-[120px] p-3 border border-neutral-200 rounded-xl text-center hover:border-[#ff8c3b] transition-colors cursor-pointer group bg-neutral-50 dark:bg-neutral-700/30">
-                            <div class="w-10 h-10 mx-auto bg-white dark:bg-neutral-600 rounded-full flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform text-[#ff8c3b]">
-                                <iconify-icon icon="solar:file-check-bold-duotone" class="text-xl"></iconify-icon>
+                        {{-- Card 1: Aadhar Front --}}
+                        @if($user->bankDetail && $user->bankDetail->aadhar_front)
+                            <a href="{{ asset($user->bankDetail->aadhar_front) }}" target="_blank"
+                            class="min-w-[120px] p-3 border border-neutral-200 rounded-xl text-center hover:border-[#ff8c3b] transition-colors cursor-pointer group bg-neutral-50 dark:bg-neutral-700/30 block">
+                                <div class="w-10 h-10 mx-auto bg-white dark:bg-neutral-600 rounded-full flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform text-[#ff8c3b]">
+                                    <iconify-icon icon="solar:file-check-bold-duotone" class="text-xl"></iconify-icon>
+                                </div>
+                                <p class="text-xs font-semibold text-neutral-900 dark:text-white mb-1">Aadhar Front</p>
+                                <span class="text-[10px] text-success-600 bg-success-50 px-2 py-0.5 rounded-full">Verified</span>
+                            </a>
+                        @else
+                            <div class="min-w-[120px] p-3 border border-dashed border-neutral-300 rounded-xl text-center bg-neutral-50 dark:bg-neutral-700/30">
+                                <div class="w-10 h-10 mx-auto bg-white dark:bg-neutral-600 rounded-full flex items-center justify-center shadow-sm mb-3 text-neutral-400">
+                                    <iconify-icon icon="solar:upload-bold-duotone" class="text-xl"></iconify-icon>
+                                </div>
+                                <p class="text-xs font-semibold text-neutral-900 dark:text-white mb-1">Aadhar Front</p>
+                                <span class="text-[10px] text-warning-600 bg-warning-50 px-2 py-0.5 rounded-full">Image not uploaded</span>
                             </div>
-                            <p class="text-xs font-semibold text-neutral-900 dark:text-white mb-1">Aadhar Back</p>
-                            <span class="text-[10px] text-success-600 bg-success-50 px-2 py-0.5 rounded-full">Verified</span>
-                        </div>
+                        @endif
 
-                         <!-- Card 3 -->
-                        <div class="min-w-[120px] p-3 border border-neutral-200 rounded-xl text-center hover:border-[#ff8c3b] transition-colors cursor-pointer group bg-neutral-50 dark:bg-neutral-700/30">
-                            <div class="w-10 h-10 mx-auto bg-white dark:bg-neutral-600 rounded-full flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform text-[#ff8c3b]">
-                                <iconify-icon icon="solar:card-reciept-bold-duotone" class="text-xl"></iconify-icon>
+                        {{-- Card 2: Aadhar Back --}}
+                        @if($user->bankDetail && $user->bankDetail->aadhar_back)
+                            <a href="{{ asset($user->bankDetail->aadhar_back) }}" target="_blank"
+                            class="min-w-[120px] p-3 border border-neutral-200 rounded-xl text-center hover:border-[#ff8c3b] transition-colors cursor-pointer group bg-neutral-50 dark:bg-neutral-700/30 block">
+                                <div class="w-10 h-10 mx-auto bg-white dark:bg-neutral-600 rounded-full flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform text-[#ff8c3b]">
+                                    <iconify-icon icon="solar:file-check-bold-duotone" class="text-xl"></iconify-icon>
+                                </div>
+                                <p class="text-xs font-semibold text-neutral-900 dark:text-white mb-1">Aadhar Back</p>
+                                <span class="text-[10px] text-success-600 bg-success-50 px-2 py-0.5 rounded-full">Verified</span>
+                            </a>
+                        @else
+                            <div class="min-w-[120px] p-3 border border-dashed border-neutral-300 rounded-xl text-center bg-neutral-50 dark:bg-neutral-700/30">
+                                <div class="w-10 h-10 mx-auto bg-white dark:bg-neutral-600 rounded-full flex items-center justify-center shadow-sm mb-3 text-neutral-400">
+                                    <iconify-icon icon="solar:upload-bold-duotone" class="text-xl"></iconify-icon>
+                                </div>
+                                <p class="text-xs font-semibold text-neutral-900 dark:text-white mb-1">Aadhar Back</p>
+                                <span class="text-[10px] text-warning-600 bg-warning-50 px-2 py-0.5 rounded-full">Image not uploaded</span>
                             </div>
-                            <p class="text-xs font-semibold text-neutral-900 dark:text-white mb-1">PAN Card</p>
-                            <span class="text-[10px] text-neutral-500 bg-neutral-100 px-2 py-0.5 rounded-full">Review</span>
-                        </div>
+                        @endif
 
-                         <!-- Card 4 -->
-                        <div class="min-w-[120px] p-3 border border-neutral-200 rounded-xl text-center hover:border-[#ff8c3b] transition-colors cursor-pointer group bg-neutral-50 dark:bg-neutral-700/30">
-                            <div class="w-10 h-10 mx-auto bg-white dark:bg-neutral-600 rounded-full flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform text-[#ff8c3b]">
-                                <iconify-icon icon="solar:bill-list-bold-duotone" class="text-xl"></iconify-icon>
+                        {{-- Card 3: PAN Card --}}
+                        @if($user->bankDetail && $user->bankDetail->pan_card)
+                            <a href="{{ asset($user->bankDetail->pan_card) }}" target="_blank"
+                            class="min-w-[120px] p-3 border border-neutral-200 rounded-xl text-center hover:border-[#ff8c3b] transition-colors cursor-pointer group bg-neutral-50 dark:bg-neutral-700/30 block">
+                                <div class="w-10 h-10 mx-auto bg-white dark:bg-neutral-600 rounded-full flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform text-[#ff8c3b]">
+                                    <iconify-icon icon="solar:card-reciept-bold-duotone" class="text-xl"></iconify-icon>
+                                </div>
+                                <p class="text-xs font-semibold text-neutral-900 dark:text-white mb-1">PAN Card</p>
+                                <span class="text-[10px] text-neutral-500 bg-neutral-100 px-2 py-0.5 rounded-full">Review</span>
+                            </a>
+                        @else
+                            <div class="min-w-[120px] p-3 border border-dashed border-neutral-300 rounded-xl text-center bg-neutral-50 dark:bg-neutral-700/30">
+                                <div class="w-10 h-10 mx-auto bg-white dark:bg-neutral-600 rounded-full flex items-center justify-center shadow-sm mb-3 text-neutral-400">
+                                    <iconify-icon icon="solar:upload-bold-duotone" class="text-xl"></iconify-icon>
+                                </div>
+                                <p class="text-xs font-semibold text-neutral-900 dark:text-white mb-1">PAN Card</p>
+                                <span class="text-[10px] text-warning-600 bg-warning-50 px-2 py-0.5 rounded-full">Image not uploaded</span>
                             </div>
-                            <p class="text-xs font-semibold text-neutral-900 dark:text-white mb-1">Bank Statement</p>
-                             <span class="text-[10px] text-success-600 bg-success-50 px-2 py-0.5 rounded-full">Verified</span>
-                        </div>
+                        @endif
+
+                        {{-- Card 4: Bank Statement --}}
+                        @if($user->bankDetail && $user->bankDetail->bank_statement)
+                            <a href="{{ asset($user->bankDetail->bank_statement) }}" target="_blank"
+                            class="min-w-[120px] p-3 border border-neutral-200 rounded-xl text-center hover:border-[#ff8c3b] transition-colors cursor-pointer group bg-neutral-50 dark:bg-neutral-700/30 block">
+                                <div class="w-10 h-10 mx-auto bg-white dark:bg-neutral-600 rounded-full flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform text-[#ff8c3b]">
+                                    <iconify-icon icon="solar:bill-list-bold-duotone" class="text-xl"></iconify-icon>
+                                </div>
+                                <p class="text-xs font-semibold text-neutral-900 dark:text-white mb-1">Bank Statement</p>
+                                <span class="text-[10px] text-success-600 bg-success-50 px-2 py-0.5 rounded-full">Verified</span>
+                            </a>
+                        @else
+                            <div class="min-w-[120px] p-3 border border-dashed border-neutral-300 rounded-xl text-center bg-neutral-50 dark:bg-neutral-700/30">
+                                <div class="w-10 h-10 mx-auto bg-white dark:bg-neutral-600 rounded-full flex items-center justify-center shadow-sm mb-3 text-neutral-400">
+                                    <iconify-icon icon="solar:upload-bold-duotone" class="text-xl"></iconify-icon>
+                                </div>
+                                <p class="text-xs font-semibold text-neutral-900 dark:text-white mb-1">Bank Statement</p>
+                                <span class="text-[10px] text-warning-600 bg-warning-50 px-2 py-0.5 rounded-full">Image not uploaded</span>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
+
+                
             </div>
 
         </div>

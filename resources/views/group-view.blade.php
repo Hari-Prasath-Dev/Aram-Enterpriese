@@ -19,31 +19,47 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div>
                             <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-1">Group Name</p>
-                            <h6 class="text-base font-semibold text-neutral-900 dark:text-white">Gold Scheme A</h6>
+                            <h6 class="text-base font-semibold text-neutral-900 dark:text-white">{{ $group->chit_name ?? '-' }}</h6>
                         </div>
                         <div>
                             <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-1">Group Value</p>
-                            <h6 class="text-base font-semibold text-neutral-900 dark:text-white">₹5,000</h6>
+                            <h6 class="text-base font-semibold text-neutral-900 dark:text-white">₹{{ number_format($group->amount) }}</h6>
                         </div>
                         <div>
                             <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-1">Start Date</p>
-                            <h6 class="text-base font-semibold text-neutral-900 dark:text-white">12 Jan 2025</h6>
+                            <h6 class="text-base font-semibold text-neutral-900 dark:text-white">{{ \Carbon\Carbon::parse($group->start_date)->format('d M Y') }}</h6>
                         </div>
                         <div>
                             <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-1">Type</p>
-                            <h6 class="text-base font-semibold text-neutral-900 dark:text-white">Fixed</h6>
+                            <h6 class="text-base font-semibold text-neutral-900 dark:text-white">{{ $group->type }}</h6>
                         </div>
                         <div>
                             <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-1">Status</p>
-                            <span class="badge bg-success-100 text-success-600 rounded-full px-3 py-1">Active</span>
+                            @php
+                                $statusLabels = [
+                                    0 => 'Upcoming',
+                                    1 => 'Active',
+                                    2 => 'Closed'
+                                ];
+
+                                $statusClasses = [
+                                    0 => 'bg-primary-100 text-primary-600',
+                                    1 => 'bg-success-100 text-success-600',
+                                    2 => 'bg-danger-100 text-danger-600'
+                                ];
+                            @endphp
+                            <span class="badge {{ $statusClasses[$group->status] ?? 'bg-gray-100 text-gray-600' }} rounded-full px-3 py-1">
+                                {{ $statusLabels[$group->status] ?? '-' }}
+                            </span>
                         </div>
+
                          <div>
                             <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-1">Total Members</p>
-                            <h6 class="text-base font-semibold text-neutral-900 dark:text-white">10</h6>
+                            <h6 class="text-base font-semibold text-neutral-900 dark:text-white">{{ $group->users->count() }}</h6>
                         </div>
                         <div>
                             <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-1">Duration</p>
-                            <h6 class="text-base font-semibold text-neutral-900 dark:text-white">12 Months</h6>
+                            <h6 class="text-base font-semibold text-neutral-900 dark:text-white">{{ $group->duration_months }} Months</h6>
                         </div>
                     </div>
                 </div>
@@ -68,29 +84,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="border-b border-neutral-200 dark:border-neutral-600">
-                                    <td class="px-6 py-3">01</td>
-                                    <td class="px-6 py-3">
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold text-xs">JD</div>
-                                            <span class="text-neutral-900 dark:text-white font-medium">John Doe</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-3">9876543210</td>
-                                    <td class="px-6 py-3"><span class="badge bg-success-100 text-success-600 rounded-full px-2 py-0.5 text-xs">Active</span></td>
-                                </tr>
-                                <tr class="border-b border-neutral-200 dark:border-neutral-600">
-                                    <td class="px-6 py-3">02</td>
-                                    <td class="px-6 py-3">
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-8 h-8 rounded-full bg-warning-100 text-warning-600 flex items-center justify-center font-bold text-xs">AB</div>
-                                            <span class="text-neutral-900 dark:text-white font-medium">Alice Brown</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-3">1234567890</td>
-                                    <td class="px-6 py-3"><span class="badge bg-success-100 text-success-600 rounded-full px-2 py-0.5 text-xs">Active</span></td>
-                                </tr>
-                                <!-- Add more rows as needed -->
+                                    @foreach ($group->users as $index => $user)
+                                        <tr class="border-b border-neutral-200 dark:border-neutral-600">
+                                            <td class="px-6 py-3">{{ $index + 1 }}</td>
+                                            <td class="px-6 py-3">
+                                                <div class="flex items-center gap-2">
+                                                    <!-- Initials badge -->
+                                                    <div class="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center font-bold text-xs">
+                                                        {{ strtoupper(substr($user->name, 0, 1) . substr(explode(' ', $user->name)[1] ?? '', 0, 1)) }}
+                                                    </div>
+                                                    <span class="text-neutral-900 dark:text-white font-medium">{{ $user->name }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-3">{{ $user->mobile }}</td>
+                                            <td class="px-6 py-3">
+                                                <span class="badge {{ $user->status == 1 ? 'bg-success-100 text-success-600' : 'bg-danger-100 text-danger-600' }} rounded-full px-2 py-0.5 text-xs">
+                                                    Active
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @if($group->users->isEmpty())
+                                    <tr>
+                                        <td colspan="4" class="px-6 py-3 text-center text-neutral-500 dark:text-neutral-400">
+                                            No members found.
+                                        </td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -110,34 +130,34 @@
                             <thead>
                                 <tr class="border-b border-neutral-200 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-800">
                                     <th class="text-start px-6 py-3 font-semibold text-neutral-900 dark:text-white">Month</th>
-                                    <th class="text-start px-6 py-3 font-semibold text-neutral-900 dark:text-white">Due Date</th>
+                                    <th class="text-start px-6 py-3 font-semibold text-neutral-900 dark:text-white">Starting Bid</th>
                                     <th class="text-start px-6 py-3 font-semibold text-neutral-900 dark:text-white">Amount</th>
-                                    <th class="text-start px-6 py-3 font-semibold text-neutral-900 dark:text-white">Status</th>
+                                    <th class="text-start px-6 py-3 font-semibold text-neutral-900 dark:text-white">Dividend</th>
                                 </tr>
                             </thead>
+
                             <tbody>
-                                @php
-                                    $duration = 12; // Example duration
-                                    $startDate = \Carbon\Carbon::parse('2025-01-12');
-                                @endphp
-                                @for ($i = 1; $i <= $duration; $i++)
-                                    @php
-                                        $dueDate = $startDate->copy()->addMonths($i - 1);
-                                        $status = $i <= 2 ? 'Paid' : ($i == 3 ? 'Pending' : 'Upcoming');
-                                        $badgeClass = $i <= 2 ? 'bg-success-100 text-success-600' : ($i == 3 ? 'bg-warning-100 text-warning-600' : 'bg-neutral-100 text-neutral-600');
-                                    @endphp
-                                    <tr class="border-b border-neutral-200 dark:border-neutral-600">
-                                        <td class="px-6 py-3">Month {{ $i }}</td>
-                                        <td class="px-6 py-3">{{ $dueDate->format('d M Y') }}</td>
-                                        <td class="px-6 py-3">₹500</td>
-                                        <td class="px-6 py-3"><span class="badge {{ $badgeClass }} rounded-full px-2 py-0.5 text-xs">{{ $status }}</span></td>
-                                    </tr>
-                                @endfor
+                                @forelse ($group->schemes as $scheme)
+                                <tr class="border-b border-neutral-200 dark:border-neutral-600">
+                                    <td class="px-6 py-3">Month {{ $scheme->month }}</td>
+                                    <td class="px-6 py-3">₹{{ number_format($scheme->starting_bid, 2) }}</td>
+                                    <td class="px-6 py-3">₹{{ number_format($scheme->amount_payable, 2) }}</td>
+                                    <td class="px-6 py-3">₹{{ number_format($scheme->dividend, 2) }}</td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="4" class="px-6 py-3 text-center text-neutral-500 dark:text-neutral-400">
+                                        No scheme details available.
+                                    </td>
+                                </tr>
+                                @endforelse
                             </tbody>
+
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 @endsection

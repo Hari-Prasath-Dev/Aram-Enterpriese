@@ -120,7 +120,7 @@
                                                 display: flex;
                                                 justify-content: center;
                                             ">
-                                            <a href="{{ route('viewUser', $user['s_no']) }}" class="w-8 h-8 bg-primary-50 dark:bg-primary-600/10 text-primary-600 dark:text-primary-400 rounded-full inline-flex items-center justify-center hover:bg-primary-100 transition-colors">
+                                            <a href="{{ route('viewUser', $user->id) }}" class="w-8 h-8 bg-primary-50 dark:bg-primary-600/10 text-primary-600 dark:text-primary-400 rounded-full inline-flex items-center justify-center hover:bg-primary-100 transition-colors">
                                                 <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
                                             </a>
                                             <a href="{{ route('formValidation', $user->id) }}"
@@ -134,6 +134,7 @@
                                             <button type="button" onclick="openPinModal()" class="w-8 h-8 bg-warning-100 dark:bg-warning-600/25 text-warning-600 dark:text-warning-400 rounded-full inline-flex items-center justify-center hover:bg-warning-200 transition-colors">
                                                 <iconify-icon icon="bi:pin-angle"></iconify-icon>
                                             </button>
+
                                             <button type="button" onclick="openDeleteModal()" class="w-8 h-8 bg-danger-100 dark:bg-danger-600/25 text-danger-600 dark:text-danger-400 rounded-full inline-flex items-center justify-center hover:bg-danger-200 transition-colors">
                                                 <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
                                             </button>
@@ -151,54 +152,54 @@
 
      <!-- Customer Details Modal Removed -->
     <!-- Delete Confirmation Modal -->
-<div id="delete-modal" 
-     class="fixed inset-0 z-50 hidden flex justify-center items-center bg-black/30 backdrop-blur-sm">
+    <div id="delete-modal" 
+        class="fixed inset-0 z-50 hidden flex justify-center items-center bg-black/30 backdrop-blur-sm">
 
-    <div class="relative p-4 w-full max-w-md" style="
-    width: 50%;">
-        <div class="relative bg-white rounded-lg shadow dark:bg-neutral-700">
+        <div class="relative p-4 w-full max-w-md" style="
+        width: 50%;">
+            <div class="relative bg-white rounded-lg shadow dark:bg-neutral-700">
 
-            <!-- Close Button -->
-            <button type="button" onclick="closeDeleteModal()" 
-                class="absolute top-3 right-2.5 text-neutral-400 hover:bg-neutral-200 hover:text-neutral-900 
-                       rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center 
-                       dark:hover:bg-neutral-600 dark:hover:text-white">
-                <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                </svg>
-            </button>
-
-            <!-- Modal Content -->
-            <div class="p-4 text-center">
-                <svg class="mx-auto mb-4 text-neutral-400 w-12 h-12 dark:text-neutral-200"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-
-                <h3 class="mb-5 text-lg font-normal text-neutral-500 dark:text-neutral-400">
-                    Are you sure you want to verify this deletion?
-                </h3>
-
-                <button type="button" onclick="closeDeleteModal()"
-                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none 
-                           focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5
-                           dark:focus:ring-red-800">
-                    Yes, Delete
+                <!-- Close Button -->
+                <button type="button" onclick="closeDeleteModal()" 
+                    class="absolute top-3 right-2.5 text-neutral-400 hover:bg-neutral-200 hover:text-neutral-900 
+                        rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center 
+                        dark:hover:bg-neutral-600 dark:hover:text-white">
+                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
                 </button>
 
-                <button type="button" onclick="closeDeleteModal()"
-                    class="py-2.5 px-5 ml-3 text-sm font-medium text-neutral-900 bg-white rounded-lg 
-                           border border-neutral-200 hover:bg-neutral-100 hover:text-blue-700 
-                           dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-600 
-                           dark:hover:text-white dark:hover:bg-neutral-700">
-                    No, Cancel
-                </button>
+                <!-- Modal Content -->
+                <div class="p-4 text-center">
+                    <svg class="mx-auto mb-4 text-neutral-400 w-12 h-12 dark:text-neutral-200"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+
+                    <h3 class="mb-5 text-lg font-normal text-neutral-500 dark:text-neutral-400">
+                        Are you sure you want to verify this deletion?
+                    </h3>
+
+                    <button type="button" onclick="closeDeleteModal()"
+                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none 
+                            focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5
+                            dark:focus:ring-red-800">
+                        Yes, Delete
+                    </button>
+
+                    <button type="button" onclick="closeDeleteModal()"
+                        class="py-2.5 px-5 ml-3 text-sm font-medium text-neutral-900 bg-white rounded-lg 
+                            border border-neutral-200 hover:bg-neutral-100 hover:text-blue-700 
+                            dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-600 
+                            dark:hover:text-white dark:hover:bg-neutral-700">
+                        No, Cancel
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 <!-- Pin Change Modal -->
@@ -335,3 +336,5 @@
         });
     });
 </script>
+
+
