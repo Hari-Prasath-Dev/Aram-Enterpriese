@@ -20,6 +20,18 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'mobile',
+        'password_expire_at',
+        'chit_id',
+        'password_expire_at',
+        'role',
+        'mobile',
+        'location',
+        'nominee_name',
+        'nominee_number',
+        'pin_number',
+        'last_login_at',
+		'status',
     ];
 
     /**
@@ -44,4 +56,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function bankDetail()
+    {
+        return $this->hasOne(BankDetail::class);
+    }
+
 }
