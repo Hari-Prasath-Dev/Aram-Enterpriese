@@ -32,7 +32,7 @@
                 </a>
             </li>
            
-             <li class="{{ Route::is('actionUpdate') ? 'active-page' : '' }}">
+             <li class="{{ Route::is('actionUpdate') || Route::is('actionUpdateCustomerList') ? 'active-page' : '' }}">
                 <a href="{{ route('actionUpdate') }}">
                     <iconify-icon icon="mdi:update" class="menu-icon"></iconify-icon>
                     <span>Action Update</span>
