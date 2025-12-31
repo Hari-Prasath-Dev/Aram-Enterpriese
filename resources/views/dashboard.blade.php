@@ -28,46 +28,53 @@
         </div>
     </div>
 
-    <!-- Total Chits -->
+    <!-- Total Groups -->
         <div class="card shadow-none border border-gray-200 dark:border-neutral-600 dark:bg-neutral-700 rounded-lg h-full bg-gradient-to-r from-purple-600/10 to-bg-white">
         <div class="card-body p-5">
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                    <p class="font-medium text-neutral-900 dark:text-white mb-1">Total Chits</p>
-                    <h6 class="mb-0 dark:text-white">{{ $totalChits ?? 300 }}</h6>
+                    <p class="font-medium text-neutral-900 dark:text-white mb-1">Total Groups</p>
+                    <h6 class="mb-0 dark:text-white">{{ $totalGroups ?? 300 }}</h6>
                 </div>
-                <div class="w-[50px] h-[50px] bg-yellow-500 rounded-full flex justify-center items-center">
-                    <iconify-icon icon="mdi:cube" class="text-white text-2xl"></iconify-icon>
+                <div class="w-[50px] h-[50px] bg-yellow-500 rounded-full flex justify-center items-center" style="background: #bc7ff9;">
+                    <img src="{{ asset('assets/images/group.png') }}" 
+                    class="w-8 h-8 object-contain" 
+                    alt="icon">
+
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Active Customers -->
-     <div class="card shadow-none border border-gray-200 dark:border-neutral-600 dark:bg-neutral-700 rounded-lg h-full bg-gradient-to-r from-blue-600/10 to-bg-white">
+     <div class="card shadow-none border border-gray-200 dark:border-neutral-600 dark:bg-neutral-700 rounded-lg h-full bg-gradient-to-r from-blue-600/10 to-bg-white" >
         <div class="card-body p-5">
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <div>
                     <p class="font-medium text-neutral-900 dark:text-white mb-1">Active Customers</p>
                     <h6 class="mb-0 dark:text-white">{{ $activeCustomers ?? 150 }}</h6>
                 </div>
-                <div class="w-[50px] h-[50px] bg-green-500 rounded-full flex justify-center items-center">
-                    <iconify-icon icon="mdi:trending-up" class="text-white text-2xl"></iconify-icon>
+                <div class="w-[50px] h-[50px] bg-green-500 rounded-full flex justify-center items-center" style="
+    background: #1dde1db5;
+">
+                    <iconify-icon icon="mdi:account-check" class="text-white text-2xl"></iconify-icon>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Not Active Customers -->
-      <div class="card shadow-none border border-gray-200 dark:border-neutral-600 dark:bg-neutral-700 rounded-lg h-full bg-gradient-to-r from-success-600/10 to-bg-white">
+      <div class="card shadow-none border border-gray-200 dark:border-neutral-600 dark:bg-neutral-700 rounded-lg h-full bg-gradient-to-r from-success-600/10 to-bg-white" >
         <div class="card-body p-5">
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                    <p class="font-medium text-neutral-900 dark:text-white mb-1">Not Active Customers</p>
+                    <p class="font-medium text-neutral-900 dark:text-white mb-1">Non Active Customers</p>
                     <h6 class="mb-0 dark:text-white">{{ $inactiveCustomers ?? 50 }}</h6>
                 </div>
-                <div class="w-[50px] h-[50px] bg-red-500 rounded-full flex justify-center items-center">
-                    <iconify-icon icon="mdi:timer-off" class="text-white text-2xl"></iconify-icon>
+                <div class="w-[50px] h-[50px] bg-red-500 rounded-full flex justify-center items-center" style="
+    background: #de241db5;
+">
+                    <iconify-icon icon="mdi:account-cancel" class="text-white text-2xl"></iconify-icon>
                 </div>
             </div>
         </div>
@@ -81,8 +88,10 @@
                     <p class="font-medium text-neutral-900 dark:text-white mb-1">Paid Customers</p>
                     <h6 class="mb-0 dark:text-white">{{ $paidCustomers ?? 140 }}</h6>
                 </div>
-                <div class="w-[50px] h-[50px] bg-purple-500 rounded-full flex justify-center items-center">
-                    <iconify-icon icon="mdi:account-cash" class="text-white text-2xl"></iconify-icon>
+                <div class="w-[50px] h-[50px] bg-purple-500 rounded-full flex justify-center items-center" style="
+    background: #1dde1db5;
+">
+                    <iconify-icon icon="mdi:currency-rupee" class="text-white text-2xl"></iconify-icon>
                 </div>
             </div>
         </div>
@@ -96,23 +105,27 @@
                     <p class="font-medium text-neutral-900 dark:text-white mb-1">Unpaid Customers</p>
                     <h6 class="mb-0 dark:text-white">{{ $unpaidCustomers ?? 10 }}</h6>
                 </div>
-                <div class="w-[50px] h-[50px] bg-orange-500 rounded-full flex justify-center items-center">
+                <div class="w-[50px] h-[50px] bg-orange-500 rounded-full flex justify-center items-center" style="
+    background: #ff0b0bff;
+">
                     <iconify-icon icon="mdi:alert-circle" class="text-white text-2xl"></iconify-icon>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Next Chit Date -->
+    <!-- Next Group Date -->
         <div class="card shadow-none border border-gray-200 dark:border-neutral-600 dark:bg-neutral-700 rounded-lg h-full bg-gradient-to-r from-pink-600/10 to-bg-white">
         <div class="card-body p-5">
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                    <p class="font-medium text-neutral-900 dark:text-white mb-1">Next Chit Date</p>
-                    <h6 class="mb-0 dark:text-white">{{ $nextChitDate ?? '21/06/24' }}</h6>
+                    <p class="font-medium text-neutral-900 dark:text-white mb-1">Next Group Date</p>
+                    <h6 class="mb-0 dark:text-white">{{ $nextGroupDate ?? '21/06/24' }}</h6>
                 </div>
-                <div class="w-[50px] h-[50px] bg-teal-500 rounded-full flex justify-center items-center">
-                    <iconify-icon icon="mdi:calendar" class="text-white text-2xl"></iconify-icon>
+                <div class="w-[50px] h-[50px] bg-teal-500 rounded-full flex justify-center items-center" style="
+    background: #fb92c0;
+">
+                    <iconify-icon icon="mdi:calendar-edit" class="text-white text-2xl"></iconify-icon>
                 </div>
             </div>
         </div>
@@ -126,8 +139,10 @@
                     <p class="font-medium text-neutral-900 dark:text-white mb-1">No of Admins</p>
                     <h6 class="mb-0 dark:text-white">{{ $adminCount ?? '03' }}</h6>
                 </div>
-                <div class="w-[50px] h-[50px] bg-indigo-500 rounded-full flex justify-center items-center">
-                    <iconify-icon icon="mdi:shield-account" class="text-white text-2xl"></iconify-icon>
+                <div class="w-[50px] h-[50px] bg-indigo-500 rounded-full flex justify-center items-center" style="
+    background: #fe6d04;
+">
+                    <iconify-icon icon="mdi:account-cog" class="text-white text-2xl"></iconify-icon>
                 </div>
             </div>
         </div>
@@ -175,7 +190,7 @@
                                     <h6 class="text-base mb-0 font-medium">{{ $item['name'] }}</h6>
                                 </td>
                                 <td class="p-4">9876543210</td> <!-- Static Phone based on request for list format -->
-                                <td class="p-4">Chit A</td> <!-- Static Group Value -->
+                                <td class="p-4">Group A</td> <!-- Static Group Value -->
                                 <td class="p-4">₹ {{ $item['amount'] }}</td>
                                 <td class="p-4">
                                     @if($loop->iteration % 3 == 0)

@@ -51,16 +51,42 @@
        <div class="grid grid-cols-12">
         <div class="col-span-12">
             <div class="card border-0 overflow-hidden">
-                <div class="card-header flex justify-between items-center bg-white dark:bg-neutral-700 border-b border-neutral-200 dark:border-neutral-600 py-4 px-6">
+                <div class="card-header border-b border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 py-4 px-6 flex items-center justify-between">
                     <h6 class="card-title mb-0 text-lg font-semibold text-neutral-900 dark:text-white">Customer List</h6>
-                    <div class="flex items-center gap-2">
-                      <form class="navbar-search">
-                    <input type="text" name="search" placeholder="Search">
-                    <iconify-icon icon="ion:search-outline" class="icon"></iconify-icon>
-                </form>
-                   <a href="{{ route('addUser') }}" class="btn btn-primary text-sm px-3 py-2 flex items-center gap-1 ms-auto">
+                    <a href="{{ route('addUser') }}" class="btn btn-primary text-sm px-3 py-2 flex items-center gap-1">
                         <iconify-icon icon="heroicons:plus" class="text-lg"></iconify-icon> Create Customers
                     </a>
+                </div>
+                <div class="card-body border-b border-neutral-200 dark:border-neutral-600 px-6 py-4">
+                    <div class="w-full flex items-center gap-6 bg-white dark:bg-neutral-700 border border-neutral-300 dark:border-neutral-600 rounded-xl px-4 py-3">
+                        <!-- Search -->
+                        <div class="flex items-center gap-2" style="width: 30%;">
+                            <iconify-icon icon="ion:search-outline" class="text-neutral-500 text-lg"></iconify-icon>
+                            <input type="text" class="form-control border-0 bg-transparent focus:shadow-none p-0 text-sm " style="
+                                width: 100%;
+                                border: 1px solid #d2d2d2;
+                                padding: 10px;
+                            "placeholder="Search by Name or Mobile...">
+                        </div>
+                        
+                        <!-- Filter By Location -->
+                        <div class="flex items-center gap-2 border-l border-neutral-300 dark:border-neutral-600 pl-6 h-full">
+                            <span class="text-neutral-800 dark:text-white whitespace-nowrap">Location</span>
+                            <select class="form-select border-0 bg-transparent text-neutral-500 focus:shadow-none ps-0 py-0 cursor-pointer min-w-[150px]" style="
+                                border: 1px solid #d2d2d2;
+                                padding: 6px 29px 6px 6px;
+                            ">
+                                <option>All Locations</option>
+                                <option>New York</option>
+                                <option>London</option>
+                            </select>
+                        </div>
+
+                        <!-- Reset Filter -->
+                        <button type="button" class="ml-auto flex items-center gap-1 text-red-500 font-medium hover:text-red-600">
+                            <iconify-icon icon="mdi:refresh"></iconify-icon>
+                            Reset
+                        </button>
                     </div>
                 </div>
                 <div class="card-body p-0">
@@ -79,23 +105,14 @@
                             </thead>
                            <tbody>
                                 {{-- Sample data, replace with your actual data --}}
-                                @php
-                                    $users = [
-                                        ['s_no' => 1, 'photo' => 'assets/images/user-grid/user-grid-img14.png', 'name' => 'John Doe', 'location' => 'New York', 'phone_number' => '123-456-7890', 'nominee_name' => 'Jane Doe'],
-                                        ['s_no' => 2, 'photo' => 'assets/images/user-grid/user-grid-img13.png', 'name' => 'Peter Jones', 'location' => 'London', 'phone_number' => '098-765-4321', 'nominee_name' => 'Mary Jones'],
-                                    ];
-                                @endphp
                                 @foreach ($users as $user)
                                 <tr class="border-b border-neutral-200 dark:border-neutral-600 hover:bg-neutral-50 dark:hover:bg-neutral-800">
-                                    <td class="px-6 py-3">{{ $user['s_no'] }}</td>
-                                    <td class="px-6 py-3" style="
-                                                    display: flex;
-                                                    justify-content: center;
-                                                ">
-                                        <img src="{{ asset($user['photo']) }}" alt="" class="shrink-0 rounded-full w-10 h-10 object-cover">
+                                    <td class="px-6 py-3">{{ $loop->iteration }}</td>
+                                    <td class="px-6 py-3" style=" display: flex; justify-content: center;">
+                                        <img src="{{ asset('assets/images/profile-user.svg') }}" alt="" class="shrink-0 rounded-full w-10 h-10 object-cover">
                                     </td>
                                     <td class="px-6 py-3 font-medium text-neutral-900 dark:text-white">{{ $user['name'] }}</td>
-                                    <td class="px-6 py-3">{{ $user['phone_number'] }}</td>
+                                    <td class="px-6 py-3">{{ $user['mobile'] }}</td>
                                     <td class="px-6 py-3">{{ $user['location'] }}</td>
                                     <td class="px-6 py-3">{{ $user['nominee_name'] }}</td>
                                      <td class="px-6 py-3">
@@ -103,13 +120,15 @@
                                                 display: flex;
                                                 justify-content: center;
                                             ">
-                                            <a href="{{ route('viewUser') }}" class="w-8 h-8 bg-primary-50 dark:bg-primary-600/10 text-primary-600 dark:text-primary-400 rounded-full inline-flex items-center justify-center hover:bg-primary-100 transition-colors">
+                                            <a href="{{ route('viewUser', $user['s_no']) }}" class="w-8 h-8 bg-primary-50 dark:bg-primary-600/10 text-primary-600 dark:text-primary-400 rounded-full inline-flex items-center justify-center hover:bg-primary-100 transition-colors">
                                                 <iconify-icon icon="iconamoon:eye-light"></iconify-icon>
                                             </a>
-                                            <a href="{{ route('formValidation', ['name' => $user['name'], 'phone' => $user['phone_number'], 'location' => $user['location'], 'email' => 'example@email.com']) }}" class="w-8 h-8 bg-success-100 dark:bg-success-600/25 text-success-600 dark:text-success-400 rounded-full inline-flex items-center justify-center hover:bg-success-200 transition-colors">
+                                            <a href="{{ route('formValidation', $user->id) }}"
+                                            class="w-8 h-8 bg-success-100 dark:bg-success-600/25 text-success-600 dark:text-success-400 rounded-full inline-flex items-center justify-center hover:bg-success-200 transition-colors">
                                                 <iconify-icon icon="lucide:edit"></iconify-icon>
                                             </a>
-                                            <a href="{{ route('imageUpload') }}" class="w-8 h-8 bg-info-100 dark:bg-info-600/25 text-info-600 dark:text-info-400 rounded-full inline-flex items-center justify-center hover:bg-info-200 transition-colors">
+
+                                            <a href="{{ route('imageUpload', $user->id) }}" class="w-8 h-8 bg-info-100 dark:bg-info-600/25 text-info-600 dark:text-info-400 rounded-full inline-flex items-center justify-center hover:bg-info-200 transition-colors">
                                                 <iconify-icon icon="mage:file-2"></iconify-icon>
                                             </a>
                                             <button type="button" onclick="openPinModal()" class="w-8 h-8 bg-warning-100 dark:bg-warning-600/25 text-warning-600 dark:text-warning-400 rounded-full inline-flex items-center justify-center hover:bg-warning-200 transition-colors">
@@ -206,54 +225,113 @@
             </div>
 
             <!-- Body -->
-            <div class="p-5">
+            <p id="pin-error" class="text-red-600 text-sm text-center mt-2"></p>
+            <form method="POST" action="{{ route('user.pin.update', $user->id) }}" enctype="multipart/form-data" id="pin-form">
+                @csrf
 
-                <!-- Old Pin -->
-                <div class="mb-5">
-                    <label class="block mb-2 text-sm font-medium text-neutral-900 dark:text-white">New Pin</label>
+                <div class="p-5">
 
+                    <!-- New Pin -->
                     <div class="flex gap-2 justify-center">
-                        <input type="text" maxlength="1" id="pin-1" onkeyup="moveToNext(this, 'pin-2')"
-                            class="w-12 h-12 text-center text-xl border border-neutral-300 rounded-lg bg-neutral-50 
-                                   focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-700 dark:border-neutral-600">
-                        <input type="text" maxlength="1" id="pin-2" onkeyup="moveToNext(this, 'pin-3')" 
-                            class="w-12 h-12 text-center text-xl border border-neutral-300 rounded-lg bg-neutral-50 
-                                   focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-700 dark:border-neutral-600">
-                        <input type="text" maxlength="1" id="pin-3" onkeyup="moveToNext(this, 'pin-4')" 
-                            class="w-12 h-12 text-center text-xl border border-neutral-300 rounded-lg bg-neutral-50 
-                                   focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-700 dark:border-neutral-600">
-                        <input type="text" maxlength="1" id="pin-4"
-                            class="w-12 h-12 text-center text-xl border border-neutral-300 rounded-lg bg-neutral-50 
-                                   focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-700 dark:border-neutral-600">
+                        @for ($i = 0; $i < 4; $i++)
+                            <input type="text"
+                                maxlength="1"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                name="pin[]"
+                                class="w-12 h-12 text-center text-xl border rounded-lg"
+                                oninput="handlePinInput(this)"
+                                onkeydown="handleBackspace(event, this)">
+                        @endfor
                     </div>
-                </div>
 
-                <!-- New Pin -->
-                <div class="mb-5">
-                    <label class="block mb-2 text-sm font-medium text-neutral-900 dark:text-white">Confirm Pin</label>
-
-                    <div class="flex gap-2 justify-center">
-                        <input type="text" maxlength="1" id="new-pin-1" onkeyup="moveToNext(this, 'new-pin-2')" 
-                            class="w-12 h-12 text-center text-xl border bg-neutral-50 rounded-lg">
-                        <input type="text" maxlength="1" id="new-pin-2" onkeyup="moveToNext(this, 'new-pin-3')" 
-                            class="w-12 h-12 text-center text-xl border bg-neutral-50 rounded-lg">
-                        <input type="text" maxlength="1" id="new-pin-3" onkeyup="moveToNext(this, 'new-pin-4')" 
-                            class="w-12 h-12 text-center text-xl border bg-neutral-50 rounded-lg">
-                        <input type="text" maxlength="1" id="new-pin-4" 
-                            class="w-12 h-12 text-center text-xl border bg-neutral-50 rounded-lg">
+                    <!-- Confirm Pin -->
+                    <div class="flex gap-2 justify-center mt-3">
+                        @for ($i = 0; $i < 4; $i++)
+                            <input type="text"
+                                maxlength="1"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                name="confirm_pin[]"
+                                class="w-12 h-12 text-center text-xl border rounded-lg"
+                                oninput="handlePinInput(this)"
+                                onkeydown="handleBackspace(event, this)">
+                        @endfor
                     </div>
+
+                    <!-- Display Error -->
+                    @if ($errors->has('pin'))
+                        <p class="text-red-600 text-sm text-center mt-2">{{ $errors->first('pin') }}</p>
+                    @endif
+
+                    <!-- Save Button -->
+                    <button type="submit"
+                        class="w-full text-white bg-primary-600 hover:bg-primary-700 
+                            font-medium rounded-lg text-sm px-5 py-2.5 mt-3">
+                        Save
+                    </button>
+
                 </div>
+            </form>
 
-                <!-- Save Button -->
-                <button type="button" onclick="closePinModal()"
-                    class="w-full text-white bg-primary-600 hover:bg-primary-700 
-                           font-medium rounded-lg text-sm px-5 py-2.5">
-                    Save
-                </button>
-
-            </div>
         </div>
     </div>
 </div>
 
 @endsection
+
+<script>
+    function handlePinInput(el) {
+        // Allow only digits
+        el.value = el.value.replace(/[^0-9]/g, '');
+
+        // Move to next input
+        if (el.value && el.nextElementSibling) {
+            el.nextElementSibling.focus();
+        }
+    }
+
+    function handleBackspace(e, el) {
+        if (e.key === 'Backspace' && !el.value && el.previousElementSibling) {
+            el.previousElementSibling.focus();
+        }
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('show_pin_modal') || $errors->has('pin'))
+            document.getElementById('pin-modal').classList.remove('hidden');
+        @endif
+
+        @if(session('success'))
+            // Close modal automatically on success without alert
+            document.getElementById('pin-modal').classList.add('hidden');
+            // Optionally, you can show a small toast or message somewhere
+            // e.g. document.getElementById('success-msg').innerText = "{{ session('success') }}";
+        @endif
+    });
+</script>
+
+<script>
+    $('#pin-form').submit(function(e){
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(response){
+                $('#pin-modal').addClass('hidden'); // close modal
+                // Optionally show success message somewhere
+                // $('#success-msg').text('PIN updated successfully');
+            },
+            error: function(xhr){
+                let errors = xhr.responseJSON.errors;
+                if(errors.pin){
+                    $('#pin-error').text(errors.pin[0]);
+                }
+            }
+        });
+    });
+</script>
